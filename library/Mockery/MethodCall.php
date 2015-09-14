@@ -22,4 +22,12 @@ class MethodCall
     {
         return $this->args;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return \Mockery::formatArgs($this->method, $this->args);
+    }
 }

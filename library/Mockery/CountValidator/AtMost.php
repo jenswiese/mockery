@@ -25,6 +25,11 @@ use Mockery;
 class AtMost extends CountValidatorAbstract
 {
     /**
+     * @var string
+     */
+    protected $validatorErrorString = 'at most';
+
+    /**
      * Validate the call count against this validator
      *
      * @param int $n
@@ -33,13 +38,7 @@ class AtMost extends CountValidatorAbstract
     public function validate($n)
     {
         if ($this->_limit < $n) {
-            $exception = new Mockery\Exception\InvalidCountException(
-                'Method ' . (string) $this->_expectation
-                . ' from ' . $this->_expectation->getMock()->mockery_getName()
-                . ' should be called' . PHP_EOL
-                . ' at most ' . $this->_limit . ' times but called ' . $n
-                . ' times.'
-            );
+            $exception = new Mockery\Exception\InvalidCountException($this->getErrorMessage($n));
             $exception->setMock($this->_expectation->getMock())
                 ->setMethodName((string) $this->_expectation)
                 ->setExpectedCountComparative('<=')

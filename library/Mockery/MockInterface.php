@@ -238,4 +238,10 @@ interface MockInterface
      * @return bool
      */
     public function mockery_isAnonymous();
+
+    /**
+     * @return ReceivedMethodCalls
+     */
+    public function mockery_getReceivedMethodCalls();
+
 }

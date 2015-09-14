@@ -20,6 +20,8 @@
 
 namespace Mockery\CountValidator;
 
+use Mockery\MethodCall;
+
 abstract class CountValidatorAbstract
 {
     /**
@@ -35,6 +37,11 @@ abstract class CountValidatorAbstract
      * @var int
      */
     protected $_limit = null;
+
+    /**
+     * @var string
+     */
+    protected $validatorErrorString = '';
 
     /**
      * Set Expectation object and upper call limit
@@ -66,4 +73,39 @@ abstract class CountValidatorAbstract
      * @return bool
      */
     abstract public function validate($n);
+
+    /**
+     * @param int $actualCount
+     * @return string
+     */
+    protected function getErrorMessage($actualCount)
+    {
+        $message = sprintf(
+            'Method %s from %s should be called' . PHP_EOL . ' %s %s times but called %s times.',
+            $this->_expectation,
+            $this->_expectation->getMock()->mockery_getName(),
+            $this->validatorErrorString,
+            $this->_limit,
+            $actualCount
+        );
+
+        if ($actualCount == 0) {
+            $message .= ' Received instead: ' . implode(', ', $this->getNotMatchingMethodCalls());
+        }
+
+        return $message;
+    }
+
+    /**
+     * Returns array with method calls
+     *
+     * @return MethodCall[]
+     */
+    protected function getNotMatchingMethodCalls()
+    {
+        return $this->_expectation
+            ->getMock()
+            ->mockery_getReceivedMethodCalls()
+            ->getNotMatchingCalls($this->_expectation);
+    }
 }

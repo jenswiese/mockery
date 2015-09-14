@@ -674,7 +674,7 @@ class Mock implements MockInterface
             $expectation->withArgs($args);
         }
         $expectation->atLeast()->once();
-        $director = new \Mockery\VerificationDirector($this->_mockery_getReceivedMethodCalls(), $expectation);
+        $director = new \Mockery\VerificationDirector($this->mockery_getReceivedMethodCalls(), $expectation);
         $director->verify();
         return $director;
     }
@@ -686,9 +686,17 @@ class Mock implements MockInterface
             $expectation->withArgs($args);
         }
         $expectation->never();
-        $director = new \Mockery\VerificationDirector($this->_mockery_getReceivedMethodCalls(), $expectation);
+        $director = new \Mockery\VerificationDirector($this->mockery_getReceivedMethodCalls(), $expectation);
         $director->verify();
         return null;
+    }
+
+    /**
+     * @return ReceivedMethodCalls
+     */
+    public function mockery_getReceivedMethodCalls()
+    {
+        return $this->_mockery_receivedMethodCalls ?: $this->_mockery_receivedMethodCalls = new \Mockery\ReceivedMethodCalls();
     }
 
     protected static function _mockery_handleStaticMethodCall($method, array $args)
@@ -704,14 +712,9 @@ class Mock implements MockInterface
         }
     }
 
-    protected function _mockery_getReceivedMethodCalls()
-    {
-        return $this->_mockery_receivedMethodCalls ?: $this->_mockery_receivedMethodCalls = new \Mockery\ReceivedMethodCalls();
-    }
-
     protected function _mockery_handleMethodCall($method, array $args)
     {
-        $this->_mockery_getReceivedMethodCalls()->push(new \Mockery\MethodCall($method, $args));
+        $this->mockery_getReceivedMethodCalls()->push(new \Mockery\MethodCall($method, $args));
 
         $rm = $this->mockery_getMethod($method);
         if ($rm && $rm->isProtected() && !$this->_mockery_allowMockingProtectedMethods) {

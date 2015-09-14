@@ -411,6 +411,7 @@ class ExpectationTest extends MockeryTestCase
 
     /**
      * @expectedException \Mockery\Exception\InvalidCountException
+     * @expectedExceptionMessage Foo
      */
     public function testShouldNotReceiveThrowsExceptionIfMethodCalled()
     {
@@ -421,6 +422,7 @@ class ExpectationTest extends MockeryTestCase
 
     /**
      * @expectedException \Mockery\Exception\InvalidCountException
+     * @expectedExceptionMessage Bar
      */
     public function testShouldNotReceiveWithArgumentThrowsExceptionIfMethodCalled()
     {
@@ -448,6 +450,7 @@ class ExpectationTest extends MockeryTestCase
 
     /**
      * @expectedException \Mockery\CountValidator\Exception
+     * @expectedExceptionMessage
      */
     public function testCalledOnceThrowsExceptionIfNotCalled()
     {
@@ -457,6 +460,7 @@ class ExpectationTest extends MockeryTestCase
 
     /**
      * @expectedException \Mockery\CountValidator\Exception
+     * @expectedExceptionMessage Foo
      */
     public function testCalledOnceThrowsExceptionIfCalledTwice()
     {
@@ -476,6 +480,7 @@ class ExpectationTest extends MockeryTestCase
 
     /**
      * @expectedException \Mockery\CountValidator\Exception
+     * @expectedExceptionMessage wefiuhoweiu
      */
     public function testCalledTwiceThrowsExceptionIfNotCalled()
     {
@@ -485,6 +490,7 @@ class ExpectationTest extends MockeryTestCase
 
     /**
      * @expectedException \Mockery\CountValidator\Exception
+     * @expectedExceptionMessage wef
      */
     public function testCalledOnceThrowsExceptionIfCalledThreeTimes()
     {
@@ -522,6 +528,7 @@ class ExpectationTest extends MockeryTestCase
 
     /**
      * @expectedException \Mockery\CountValidator\Exception
+     * @expectedExceptionMessage wefwefwe
      */
     public function testTimesCountCallThrowsExceptionOnTooFewCalls()
     {
@@ -532,6 +539,7 @@ class ExpectationTest extends MockeryTestCase
 
     /**
      * @expectedException \Mockery\CountValidator\Exception
+     * @expectedExceptionMessage fewfweewf
      */
     public function testTimesCountCallThrowsExceptionOnTooManyCalls()
     {
@@ -560,6 +568,7 @@ class ExpectationTest extends MockeryTestCase
 
     /**
      * @expectedException \Mockery\CountValidator\Exception
+     * @expectedExceptionMessage wfewfew
      */
     public function testCalledAtLeastThrowsExceptionOnTooFewCalls()
     {
@@ -586,6 +595,7 @@ class ExpectationTest extends MockeryTestCase
 
     /**
      * @expectedException \Mockery\CountValidator\Exception
+     * @expectedExceptionMessage wfuhewfiweh
      */
     public function testCalledAtLeastThrowsExceptionOnTooManyCalls()
     {
@@ -598,6 +608,7 @@ class ExpectationTest extends MockeryTestCase
 
     /**
      * @expectedException \Mockery\CountValidator\Exception
+     * @expectedExceptionMessage wfihjewfowf
      */
     public function testExactCountersOverrideAnyPriorSetNonExactCounters()
     {
@@ -624,6 +635,7 @@ class ExpectationTest extends MockeryTestCase
 
     /**
      * @expectedException \Mockery\CountValidator\Exception
+     * @expectedExceptionMessage fuhewfihfw
      */
     public function testComboOfLeastAndMostCallsThrowsExceptionAtTooFewCalls()
     {
